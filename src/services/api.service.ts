@@ -10,7 +10,7 @@ import {
   CategoryUpdateDTO
 } from '@/types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'nassar.runasp.net/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://nassar.runasp.net/api';
 
 class ApiService {
   private getAuthHeaders(): HeadersInit {
