@@ -6,10 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 export const ProjectsSection = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -79,12 +77,16 @@ export const ProjectsSection = () => {
           ) : (
             <>
               <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={30}
+                modules={[Autoplay]}
+                spaceBetween={20}
                 slidesPerView={1}
-                navigation
-                pagination={{ clickable: true }}
-                className="max-w-3xl mx-auto"
+                loop={true}
+                autoplay={{ delay: 3000, disableOnInteraction: false }}
+                breakpoints={{
+                  640: { slidesPerView: 1 },   // mobile
+                  768: { slidesPerView: 2 },   // tablet
+                  1024: { slidesPerView: 4 },  // desktop
+                }}
               >
                 {filteredProjects.map((project, index) => (
                   <SwiperSlide key={project.id}>
