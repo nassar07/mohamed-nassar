@@ -89,7 +89,7 @@ export const ProjectsSection = () => {
                 }}
               >
                 {filteredProjects.map((project, index) => (
-                  <SwiperSlide key={project.id}>
+                  <SwiperSlide key={project.id} className="flex">
                     <ProjectCard project={project} index={index} />
                   </SwiperSlide>
                 ))}

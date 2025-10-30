@@ -12,7 +12,7 @@ interface ProjectCardProps {
 export const ProjectCard = ({ project, index }: ProjectCardProps) => {
   return (
     <Card 
-      className="overflow-hidden hover-glow transition-all group animate-fade-in-up"
+      className="overflow-hidden hover-glow transition-all group animate-fade-in-up flex flex-col h-full"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className="relative overflow-hidden aspect-video">
@@ -37,14 +37,16 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
         </div>
       </div>
 
-      <CardContent className="p-6 space-y-4">
-        <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-muted-foreground line-clamp-3">
-          {project.description}
-        </p>
-        <div className="flex flex-wrap gap-2">
+      <CardContent className="p-6 flex-1 flex flex-col justify-between">
+        <div>
+          <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
+            {project.title}
+          </h3>
+          <p className="text-muted-foreground line-clamp-3">
+            {project.description}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2 mt-4">
           {project.technologies.map((tech) => (
             <Badge key={tech} variant="secondary">
               {tech}
