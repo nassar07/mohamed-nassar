@@ -5,6 +5,11 @@ import { ProjectCard } from './ProjectCard';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 export const ProjectsSection = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -66,18 +71,27 @@ export const ProjectsSection = () => {
             </div>
           </div>
 
-          {/* Projects Grid */}
+          {/* Projects Slider */}
           {loading ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">Loading projects...</p>
             </div>
           ) : (
             <>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Swiper
+                modules={[Navigation, Pagination]}
+                spaceBetween={30}
+                slidesPerView={1}
+                navigation
+                pagination={{ clickable: true }}
+                className="max-w-3xl mx-auto"
+              >
                 {filteredProjects.map((project, index) => (
-                  <ProjectCard key={project.id} project={project} index={index} />
+                  <SwiperSlide key={project.id}>
+                    <ProjectCard project={project} index={index} />
+                  </SwiperSlide>
                 ))}
-              </div>
+              </Swiper>
 
               {filteredProjects.length === 0 && (
                 <p className="text-center text-muted-foreground mt-12">

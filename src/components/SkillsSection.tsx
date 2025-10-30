@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
 import { apiService } from '@/services/api.service';
 import { Skill } from '@/types';
 import { useToast } from '@/hooks/use-toast';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export const SkillsSection = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
@@ -61,30 +67,61 @@ export const SkillsSection = () => {
             ))}
           </div>
 
-          {/* Skills Grid */}
+          {/* Skills Slider */}
           {loading ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">Loading skills...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              spaceBetween={24}
+              slidesPerView={2}
+              loop={true}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              speed={1200}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 24,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 24,
+                },
+              }}
+              className="skills-swiper pb-12"
+            >
               {filteredSkills.map((skill, index) => (
-                <div
-                  key={skill.id}
-                  className="group flex flex-col items-center gap-4 p-6 rounded-xl bg-card hover:bg-accent/50 transition-all hover-scale hover-glow animate-fade-in"
-                  style={{ animationDelay: `${index * 0.05}s` }}
-                >
-                  <div className="w-16 h-16 flex items-center justify-center">
-                    <img
-                      src={skill.icon}
-                      alt={skill.name}
-                      className="w-full h-full object-contain group-hover:scale-110 transition-transform"
-                    />
+                <SwiperSlide key={skill.id}>
+                  <div
+                    className="group flex flex-col items-center gap-4 p-6 rounded-xl bg-card hover:bg-accent/50 transition-all hover-scale animate-fade-in border border-border/50"
+                    style={{ animationDelay: `${index * 0.05}s` }}
+                  >
+                    <div className="w-16 h-16 flex items-center justify-center">
+                      <img
+                        src={skill.icon}
+                        alt={skill.name}
+                        className="w-full h-full object-contain group-hover:scale-110 transition-transform"
+                      />
+                    </div>
+                    <span className="text-sm font-medium text-center">{skill.name}</span>
                   </div>
-                  <span className="text-sm font-medium text-center">{skill.name}</span>
-                </div>
+                </SwiperSlide>
               ))}
-            </div>
+            </Swiper>
           )}
         </div>
       </div>
