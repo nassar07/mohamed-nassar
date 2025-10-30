@@ -85,7 +85,7 @@ export const ProjectsSection = () => {
                 breakpoints={{
                   640: { slidesPerView: 1 },   // mobile
                   768: { slidesPerView: 2 },   // tablet
-                  1024: { slidesPerView: 4 },  // desktop
+                  1024: { slidesPerView: 3 },  // desktop
                 }}
               >
                 {filteredProjects.map((project, index) => (
